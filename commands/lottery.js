@@ -26,7 +26,6 @@ module.exports = {
             axios.get(`${config.api_base}/lottery/pot`)
                 .then(res => {
                     let pot = res.data;
-                    console.log(pot);
                     data = new MessageEmbed()
                         .setTitle("TINY Lottery Info")
                         .setColor('#daa520')
