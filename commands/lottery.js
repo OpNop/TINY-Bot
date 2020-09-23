@@ -1,62 +1,77 @@
-const { prefix } = require('../config.json');
+const config = require('../config.json');
+const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 
 module.exports = {
-	name: 'lottery',
-	description: 'Get information about the lottery',
-	aliases: ['lotto'],
-	execute(message, args) {
+    name: 'lottery',
+    description: 'Get information about the lottery',
+    aliases: ['lotto'],
+    execute(message, args) {
+        let account = null;
         let data;
-        
-        //Send current lottery pot
-        data = new Discord.RichEmbed({
-            title: "TINY Lottery Info",
-            color: 0xdaa520,
-            description: `The TINY Lottery is where your dreams can come true\r\n
-            Basic Rules\r\n
-            - 1 entry for every <:gold:687141628636430366> deposited\r\n
-            - A Maximum of 5 entries can be earned per week per account\r\n
-            - The winner will be pulled during Tiny Takeover Tuesday\r\n
-            - Entry period is weekly starting from Tuesday at server reset\r\n
-            - 3 Winners Every week\r\n
-            \r\n
-            *Prize amounts are estimates based on current entries and are subject to change.`,
-            footer: {
-                text: "Tiny Lottery Service",
-                iconURL: "https://s.tinyarmy.org/wp-content/uploads/2018/12/fav_57.png"
-            }
-        });
 
-		// if (!args.length) {
-		// 	data.push('Here\'s a list of all my commands:');
-		// 	data.push(commands.map(command => command.name).join(', '));
-		// 	data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+        //Check for account name
+        if (args.length) {
+            account = args.join(" ");
+        }
 
-		// 	return message.author.send(data, { split: true })
-		// 		.then(() => {
-		// 			if (message.channel.type === 'dm') return;
-		// 			message.reply('I\'ve sent you a DM with all my commands!');
-		// 		})
-		// 		.catch(error => {
-		// 			console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-		// 			message.reply('it seems like I can\'t DM you!');
-		// 		});
-		// }
+        if (account) {
+            //Checking for users entries
+            data = "Not implemented yet";
+            message.channel.send(data);
+        } else {
+            //Send current lottery pot and info       
 
-		// const name = args[0].toLowerCase();
-		// const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+            //Get lottery pot
+            axios.get(`${config.api_base}/lottery/pot`)
+                .then(res => {
+                    let pot = res.data;
+                    console.log(pot);
+                    data = new MessageEmbed()
+                        .setTitle("TINY Lottery Info")
+                        .setColor('#daa520')
+                        .setTimestamp()
+                        .setFooter("Tiny Lottery Service", "https://s.tinyarmy.org/wp-content/uploads/2018/12/fav_57.png")
+                        .setDescription(`The TINY Lottery is where your dreams can come true
+            
+                        **Basic Rules**
+                        - 1 entry for every <:gold:687141628636430366> deposited
+                        - A Maximum of 5 entries can be earned per week per account
+                        - The winner will be pulled during Tiny Takeover Tuesday
+                        - Entry period is weekly starting from Tuesday at server reset
+                        - 3 Winners Every week
+                        
+                        *Prize amounts are estimates based on **current** entries and are subject to change.`)
+                        .addField("1st Place", coins2gold(pot.first), true)
+                        .addField("2nd Place", coins2gold(pot.second), true)
+                        .addField("3rd Place", coins2gold(pot.third), true)
 
-		// if (!command) {
-		// 	return message.reply('that\'s not a valid command!');
-		// }
-
-		// data.push(`**Name:** ${command.name}`);
-
-		// if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-		// if (command.description) data.push(`**Description:** ${command.description}`);
-		// if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-
-		// data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-
-		message.channel.send(data, { split: true });
-	},
+                    message.channel.send(data);
+                })
+                .catch(err => {
+                    data = err;
+                    message.channel.send(data);
+                })
+        }
+    },
 };
+
+function coins2gold(coins) {
+    const copper = coins % 100,
+        silver = ~~((coins % 10000) / 100),
+        gold = ~~((coins % 1000000) / 10000);
+    const result = [];
+    //less than 1 Silver
+    if (!silver && !gold) {
+        return `${copper} <:copper:687141688157667335>`;
+    } else {
+        if (gold) {
+            result.push(`${gold} <:gold:687141628636430366>`);
+        }
+        result.push(`${silver} <:silver:687141687985832003>`);
+    }
+
+    return result.join(' ');
+
+    //<:copper:687141688157667335> <:gold:687141628636430366> <:silver:687141687985832003>
+}

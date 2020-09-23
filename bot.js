@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require("./config.json");
@@ -14,7 +15,7 @@ client.on('ready', () => {
     console.log('I am ready!');
 });
 
-client.on('message', message => {
+client.on('message', async message => {
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
     const args = message.content.slice(config.prefix.length).split(/ +/);
@@ -35,7 +36,7 @@ client.on('message', message => {
     
     try {
 		message.channel.startTyping()
-		await command.execute(message, args, api);
+		await command.execute(message, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
