@@ -18,7 +18,21 @@ module.exports = {
         if (account) {
             //Checking for users entries
             data = "Not implemented yet";
-            message.channel.send(data);
+            axios.get(`${config.api_base}/lottery/${account}/entries`)
+                .then(res => {
+                    if(res.data.tickets == 0)
+                    {
+                        data = `I cant find any <:lotto_ticket:758522048309362708> for you 😯 If you just deposited, try again in about **1 minute**.`;
+                    } else {
+                        //<:lotto_ticket:758522048309362708>
+                        data = `you have ${res.data.tickets} <:lotto_ticket:758522048309362708> in this weeks lottery 🎉`;
+                    }
+                    message.reply(data);
+                })
+                .catch(err => {
+                    message.channel.send(err);
+                })
+            //message.channel.send(data);
         } else {
             //Send current lottery pot and info       
 
