@@ -44,20 +44,21 @@ module.exports = {
                         .setTitle("TINY Lottery Info")
                         .setColor('#daa520')
                         .setTimestamp()
-                        .setFooter("Tiny Lottery Service", "https://s.tinyarmy.org/wp-content/uploads/2018/12/fav_57.png")
+                        .setImage("https://api.tinyarmy.org/v1/lottery/pot/image")
+                        .setFooter("Tiny Lottery Service", "https://tinyarmy.org/wp-content/uploads/2018/12/fav_57.png")
                         .setDescription(`The TINY Lottery is where your dreams can come true
             
                         **Basic Rules**
                         - 1 entry for every <:gold:687141628636430366> deposited
-                        - A Maximum of 5 entries can be earned per week per account
-                        - The winner will be pulled during Tiny Takeover Tuesday
+                        - A Maximum of 10 entries can be earned per week per account
+                        - 3 winners will be pulled during Tiny Takeover Tuesday
                         - Entry period is weekly starting from Tuesday at server reset
-                        - 3 Winners Every week
+                        - Each winner get 
                         
                         *Prize amounts are estimates based on **current** entries and are subject to change.`)
-                        .addField("1st Place", coins2gold(pot.first), true)
-                        .addField("2nd Place", coins2gold(pot.second), true)
-                        .addField("3rd Place", coins2gold(pot.third), true)
+                        // .addField("1st Place", coins2gold(pot.first), true)
+                        // .addField("2nd Place", coins2gold(pot.second), true)
+                        // .addField("3rd Place", coins2gold(pot.third), true)
 
                     message.channel.send(data);
                 })
