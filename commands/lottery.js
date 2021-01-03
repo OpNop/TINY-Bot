@@ -53,7 +53,6 @@ module.exports = {
                         - A Maximum of 10 entries can be earned per week per account
                         - 3 winners will be pulled during Tiny Takeover Tuesday
                         - Entry period is weekly starting from Tuesday at server reset
-                        - Each winner get 
                         
                         *Prize amounts are estimates based on **current** entries and are subject to change.`)
                         // .addField("1st Place", coins2gold(pot.first), true)
