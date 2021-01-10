@@ -23,12 +23,13 @@ module.exports = {
                 .then(res => {
                     if(res.data.tickets == 0)
                     {
-                        data = `I cant find any <:lotto_ticket:758522048309362708> for you 😯 If you just deposited, try again in about **1 minute**.`;
+                        data = `I cant find any <:lotto_ticket:758522048309362708> for you 😯 If you just deposited, try again in about **5 minutes**.`;
                     } else {
                         //<:lotto_ticket:758522048309362708>
                         data = `you have ${res.data.tickets} <:lotto_ticket:758522048309362708> in this weeks lottery 🎉`;
                     }
-                    message.reply(data);
+                    message.reply('Check your private messages for your results.');
+                    message.author.send(data);
                 })
                 .catch(err => {
                     message.channel.send(err);
