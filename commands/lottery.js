@@ -12,7 +12,8 @@ module.exports = {
 
         //Check for account name
         if (args.length) {
-            account = args.join(" ");
+            account = /^.*\.\d{4}/g.exec(args)[0];
+            //account = args.join(" ");
         }
 
         if (account) {
