@@ -41,11 +41,11 @@ module.exports = {
                 .then(res => {
                     let pot = res.data;
                     data = new MessageEmbed()
-                        .setTitle("TINY Lottery Info")
+                        .setTitle('TINY Lottery Info')
                         .setColor('#daa520')
                         .setTimestamp()
-                        .setImage("https://api.tinyarmy.org/v1/lottery/pot/image")
-                        .setFooter("Tiny Lottery Service", "https://tinyarmy.org/wp-content/uploads/2018/12/fav_57.png")
+                        .setImage(`https://api.tinyarmy.org/v1/lottery/pot/image?${Date.now()}`)
+                        .setFooter('Tiny Lottery Service', 'https://tinyarmy.org/wp-content/uploads/2018/12/fav_57.png')
                         .setDescription(`The TINY Lottery is where your dreams can come true
             
                         **Basic Rules**
