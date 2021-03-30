@@ -1,0 +1,21 @@
+{
+    "token": "TOKEN",
+    "color": "0x6a1b9a",
+    "prefix": ">",
+    "gw2_api_key": "API KEY",
+    "tiny_api_key": "API KEY",
+    "unverified_role": "825888352444088320",
+    "verified_role": "825890980527079435",
+    "guilds": [
+      {
+        "guild_name": "Pewpews Tiny Army",
+        "id": "BA7EC8EA-6B52-E811-81A8-90824340DEC8",
+        "role": "606739463762214942"
+      },
+      {
+        "guild_name": "Taimis Tiny Army",
+        "id": "0A9D5AFD-9709-E911-81A8-A25FC8B1A2FE",
+        "role": "606739357084286996"
+      }
+    ]
+  }
