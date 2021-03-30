@@ -57,6 +57,24 @@ module.exports = {
                 Logger.Error(JSON.stringify(error, null, 2));
                 return false;
             }
+        },
+        async getLotteryEntries(account) {
+            try {
+                let result = await tinyApi.get(`/lottery/${account}/entries`)
+                return result.data;
+            } catch (error) {
+                Logger.Error(JSON.stringify(error, null, 2));
+                return false;
+            }
+        },
+        async getLotteryPot() {
+            try {
+                let result = await tinyApi.get('/lottery/pot')
+                return result.data;
+            } catch (error) {
+                Logger.Error(JSON.stringify(error, null, 2));
+                return false;
+            }
         }
     },
     gw2: {
