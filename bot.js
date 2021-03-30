@@ -1,4 +1,3 @@
-const Api = require('./Classes/Api');
 const { prefix, token, unverified_role } = require('./config.json');
 const Discord = require('discord.js');
 const Embeds = require('./Classes/Embed');
@@ -14,6 +13,9 @@ const commandFiles = fs.readdirSync('./Commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
     const command = require(`./Commands/${file}`);
     client.commands.set(command.name, command);
+    if(command.aliases) {
+        client.commands.set(command.aliases, command);
+    }
 }
 
 client.on('ready', async () => {
